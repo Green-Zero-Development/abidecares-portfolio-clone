@@ -1,0 +1,42 @@
+{% set thisGlobalSection = [] %}
+{% for item in globalSections %}
+    {% if item.title == "Pre Footer Section" %}
+        {% set thisGlobalSection = (thisGlobalSection.push({id: item.id, title: item.title, acf: item.acf}), thisGlobalSection) %}
+    {% endif %}
+{% endfor %}
+
+<div class="flex flex-wrap max-w-4xl mx-auto text-center">
+    <h3 class="w-full text-cream text-5xl sm:text-h3-init pb-4">{{ thisGlobalSection[0].acf.title }}</h3>
+    <p class="w-full max-w-3xl text-cream text-xl mx-auto">{{ thisGlobalSection[0].acf.paragraph }}</p>
+    <div class="sm:flex justify-center w-full mt-7">
+        <a 
+            {% if thisGlobalSection[0].acf.button_one.link_to_where == "A page on this site" %}
+            href='{{ thisGlobalSection[0].acf.button_one.onsite_link }}'
+            {% elseif thisGlobalSection[0].acf.button_one.link_to_where == "Another site" %}
+            href='{{ thisGlobalSection[0].acf.button_one.offsite_link }}' target='_blank'
+            {% elseif thisGlobalSection[0].acf.button_one.link_to_where == "A file" %}
+                    href='{{ thisGlobalSection[0].acf.button_one.file_link }}' 
+            target='_blank'
+            {% endif %}
+        >
+            <button class="mb-6 sm:mb-0 mx-4 light-button">
+                {{ thisGlobalSection[0].acf.button_one.text }}
+            </button>
+        </a>
+    
+    <a 
+        {% if thisGlobalSection[0].acf.button_two.link_to_where == "A page on this site" %}
+        href='{{ thisGlobalSection[0].acf.button_two.onsite_link }}'
+        {% elseif thisGlobalSection[0].acf.button_two.link_to_where == "Another site" %}
+        href='{{ thisGlobalSection[0].acf.button_two.offsite_link }}' target='_blank'
+        {% elseif thisGlobalSection[0].acf.button_two.link_to_where == "A file" %}
+                href='{{ thisGlobalSection[0].acf.button_two.file_link }}' 
+        target='_blank'
+        {% endif %}
+    >
+        <button class="outline-white-button">
+            {{ thisGlobalSection[0].acf.button_two.text }}
+        </button>
+    </a>
+    </div>
+</div>

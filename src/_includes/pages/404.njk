@@ -1,0 +1,18 @@
+{% set fourOFourPage = [] %}
+{% for item in wpages %}
+    {% if item.title == "404" %}
+        {% set fourOFourPage = (fourOFourPage.push({id: item.id, title: item.title, acf: item.acf}), fourOFourPage) %}
+    {% endif %}
+{% endfor %}
+
+<div class="flex flex-wrap w-5/6 mx-auto py-56">
+    <div class="w-full text-center">
+        <h1 class="text-5xl text-navy font-bold leading-none">{{ fourOFourPage[0].acf.hero_section.title }}</h1>
+        <p class="pt-6 pb-12 text-navy">{{ fourOFourPage[0].acf.hero_section.paragraph }}</p>
+        <a href="{{ fourOFourPage[0].acf.hero_section.button.link }}">
+            <button>
+                {{ fourOFourPage[0].acf.hero_section.button.text }}
+            </button>
+        </a>
+    </div>
+</div>

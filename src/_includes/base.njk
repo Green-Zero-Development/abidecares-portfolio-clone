@@ -1,0 +1,55 @@
+{% set tracking = [] %}
+{% for item in globalData %}
+    {% if item.title == "Tracking Code" %}
+        {% set tracking = (tracking.push({id: item.id, title: item.title, acf: item.acf}), tracking) %}
+    {% endif %}
+{% endfor %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+    {% include "./head/all.njk" %}
+    {% if build.env == "production" %}
+        {# Add any CSS from the main script #}
+        {% viteLinkStylesheetTags "src/client/main.js" %}
+        {% viteLinkModulePreloadTags "src/client/main.js" %}
+    {% else %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% endif %}
+    </head>
+    <body>
+    {% for item in tracking[0].acf.value_list %}{% if item.type == "GTM No Script" %}{{ item.value | safe }}{% endif %}{% endfor %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.1/ScrollTrigger.min.js"></script>
+        {% include "header.njk" %}
+        <main>
+            {{ content | safe }}
+        </main>
+        {% include "footer.njk" %}
+        {#  
+            We must split development  and production scripts
+            In development, vite runs a server to resolve and reload scripts
+            In production, the scripts are statically replaced at build-time 
+
+            The build.env variable is assigned in src/_data/build.js
+            @see https://vitejs.dev/guide/backend-integration.html#backend-integration
+            @see https://www.11ty.dev/docs/data-js/#example-exposing-environment-variables
+        #}
+        {% if build.env == "production" %}
+            {# We must read the production scripts from the Vite manifest. We defer that logic to a custom shortcode #}
+            {% viteScriptTag "src/client/main.js" %}
+            {% viteLegacyScriptTag "vite/legacy-polyfills" %}
+            {% viteLegacyScriptTag "src/client/main-legacy.js" %}
+        {% else %}
+            <script type="module" src="http://localhost:3000/@vite/client"></script>
+            <script type="module" src="http://localhost:3000/src/client/main.js"></script>
+        {% endif %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if (window.document.documentMode && window.location.pathname !== "/ie-catch.html") {
+                    window.location.replace("{{ siteData.siteBaseUrl }}/ie-catch.html");
+                }
+            }, false);
+        </script>
+    </body>
+</html>

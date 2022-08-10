@@ -1,0 +1,21 @@
+<div class="flex flex-wrap w-5/6 mx-auto pt-48 pb-56">
+    <div class="w-full max-w-xl mx-auto text-center">
+        <h1 id="hero-title" class="text-5xl font-bold text-navy leading-none" x-text="dataItem.heroSection.title">{{ wpage.heroSection.title }}</h1>
+        <p id="thank-you-text" class="text-lg text-navy pt-6 pb-12">{{ wpage.heroSection.paragraph }}</p>
+        <a href="{{ wpage.heroSection.button.link }}">
+            <button>
+                {{ wpage.heroSection.button.text }}
+            </button>
+        </a>
+    </div>
+</div>
+
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const thanksReason = urlParams.get('reason');
+    const thankYouText = document.getElementById('thank-you-text');
+    if (thanksReason == "employment") {
+        thankYouText.innerText = "We have received your application. If you are a good fit for one of our positions, someone will be in touch shortly."
+    }
+</script>

@@ -1,0 +1,483 @@
+@import url("https://use.typekit.net/mgn4ttl.css");
+@import "swiper/css";
+@import "swiper/css/pagination";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: Recoleta;
+    src: url("/fonts/Recoleta-Regular.woff2") format("woff2"),
+         url("/fonts/Recoleta-Regular.woff") format("woff")
+}
+
+@font-face {
+    font-family: Recoleta;
+    src: url("https://abide-pioneer.netlify.app/fonts/Recoleta-Regular.woff2") format("woff2"),
+         url("https://abide-pioneer.netlify.app/fonts/Recoleta-Regular.woff") format("woff")
+}
+
+html {
+  
+}
+
+body {
+    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/02/Abide_HomePage_Gradient-01-1.png');
+    background-size: cover;
+    color: #000000;
+}
+
+h1 {
+    font-family: "Recoleta", san-serif;
+    font-size: 80px;
+    line-height: 1;
+}
+
+h2 {
+    font-family: "Recoleta", san-serif;
+    font-size: 72px;
+    line-height: 1;
+}
+
+h3 {
+    font-family: "Recoleta", san-serif;
+    font-size: 64px;
+    line-height: 1;
+}
+
+h4 {
+    font-family: "Recoleta", san-serif;
+    font-size: 56px;
+}
+
+h5 {
+    font-family: "Recoleta", san-serif;
+    font-size: 48px;
+}
+
+h6 {
+    font-family: "Recoleta", san-serif;
+    font-size: 32px;
+}
+
+p {
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #1E323F;
+}
+
+.lg-p {
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.sm-p {
+    font-size: 14px;
+}
+
+a {
+  
+}
+
+a:hover {
+    
+}
+
+.text-button {
+    font-family: futura-pt, sans-serif;
+    color: #1E323F;
+}
+
+.text-button:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #1E323F;
+    font-family: futura-pt, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #F6F4EE;
+    padding: 10px 32px 10px 32px;
+    border-radius: 32px;
+    transition: 0.25s;
+}
+
+button:hover {
+    background-color: #2E4D62;
+    transition: 0.25s;
+}
+
+button:disabled {
+    background-color: #888888;
+    color: #D4D4D4;
+}
+
+.light-button {
+    background-color: rgba(246, 244, 238, 0.5);
+    border: 1px solid #F6F4EE;
+    color: #1E323F;
+}
+
+.light-button:hover {
+    background-color: #EBE7DA;
+    transition: 0.25s;
+}
+
+.light-button:disabled {
+    background-color: #888888;
+    border: 1px solid #D4D4D4;
+    color: #D4D4D4;
+}
+
+.outline-button {
+    background-color: transparent;
+    border: 1px solid #1E323F;
+    color: #1E323F;
+}
+
+.outline-button:hover {
+    background-color: #F6F4EE;
+    transition: 0.25s;
+}
+
+.outline-button:disabled {
+    background-color: #888888;
+    border: 1px solid #D4D4D4;
+    color: #D4D4D4;
+}
+
+.dark-outline-button {
+    background-color: transparent;
+    border: 1px solid #1E323F;
+    color: #1E323F;
+}
+
+.dark-outline-button:hover {
+    background-color: #1E323F;
+    color: #F6F4EE;
+    transition: 0.25s;
+}
+
+.dark-outline-button:hover svg {
+    fill: #F6F4EE;
+}
+
+.dark-outline-button:disabled {
+    background-color: #888888;
+    border: 1px solid #D4D4D4;
+    color: #D4D4D4;
+}
+
+.outline-white-button {
+    background-color: transparent;
+    border: 1px solid #F6F4EE;
+    color: #F6F4EE;
+    transition: 0.25s;
+}
+
+.outline-white-button:hover {
+    border: 1px solid #1E323F;
+    background-color: #F6F4EE;
+    color: #1E323F;
+    transition: 0.25s;
+}
+
+.outline-white-button:disabled {
+    background-color: #888888;
+    border: 1px solid #D4D4D4;
+    color: #D4D4D4;
+}
+
+.outline-submit-button {
+    background-color: transparent;
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #F6F4EE;
+    padding: 13px 32px 10px 32px;
+    border-radius: 32px;
+    border: 1px solid #F6F4EE;
+    color: #F6F4EE;
+    transition: 0.25s;
+}
+
+.outline-submit-button:hover {
+    border: 1px solid #1E323F !important;
+    background-color: #F6F4EE !important;
+    color: #1E323F !important;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.transparent-button {
+    background-color: rgba(246, 244, 238, 0.5) !important;
+    border: 1px solid #F6F4EE !important;
+    color: #1E323F !important;
+}
+
+.transparent-button:hover {
+    background-color: #F6F4EE !important;
+    transition: 0.25s;
+}
+
+.transparent-button:disabled {
+    background-color: #888888;
+    border: 1px solid #D4D4D4;
+    color: #D4D4D4;
+}
+
+ul {
+
+}
+
+ol {
+
+}
+
+li {
+    font-family: futura-pt, sans-serif;
+}
+
+address {
+    font-family: futura-pt, sans-serif;
+}
+
+blockquote {
+
+}
+
+code {
+
+}
+
+label {
+
+}
+
+input {
+    font-family: futura-pt, sans-serif;
+    background-color: #F6F4EE;
+    border: solid 1px #1E323F;
+    font-size: 14px;
+    padding: 15px 15px 10px 15px;
+    border-radius: 40px;
+}
+
+input::placeholder {
+    color: #1E323F;
+}
+
+textarea {
+    font-family: futura-pt, sans-serif;
+    background-color: #F6F4EE;
+    border: solid 1px #1E323F;
+    font-size: 14px;
+    padding: 15px 15px 10px 15px;
+    border-radius: 16px;
+    min-height: 200px !important;
+}
+
+textarea::placeholder {
+    color: #1E323F;
+}
+
+select {
+    font-family: futura-pt, sans-serif;
+    background-color: #F6F4EE;
+    border: solid 1px #1E323F;
+    font-size: 14px;
+    padding: 15px 15px 10px 15px;
+    border-radius: 40px;
+}
+
+input[type="submit"] {
+    background-color: #1E323F;
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #F6F4EE;
+    padding: 13px 32px 10px 32px;
+    border-radius: 32px;
+    transition: 0.25s;
+}
+
+input[type="submit"]:hover {
+    background-color: #2E4D62;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+input[type="submit"]:disabled {
+    background-color: #888888;
+    color: #D4D4D4;
+}
+
+.contact-page-form .cog-button {
+    margin-left: auto;
+    background-color: #1E323F;
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #F6F4EE;
+    padding: 13px 32px 10px 32px;
+    border-radius: 32px;
+    transition: 0.25s;
+}
+
+.contact-page-form .cog-button:hover {
+    background-color: #2E4D62;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+img {
+  
+}
+
+[x-cloak] { 
+    display: none !important; 
+}
+
+.zip-code-input {
+    background-color: #2E4D62;
+    font-family: futura-pt, sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+    color: #F6F4EE;
+    padding: 13px 12px 10px 12px;
+    border-radius: 32px;
+}
+
+.site-gradient {
+    z-index: -1;
+}
+
+.location-services-box {
+    background-color: rgba(246,244,238, 0.45);
+    border-radius: 16px;
+    border: 1px solid #F6F4EE;
+    transition: .25s;
+}
+
+.location-services-box:hover {
+    background-color: rgba(246,244,238, 1);
+    transition: .25s;
+}
+
+.location-services-list {
+    font-family: futura-pt, sans-serif;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.location-services-list-item {
+    padding: 0px 6px 6px 6px;
+}
+
+.team-headshot-box {
+    min-width: 180px;
+    max-width: 180px;
+}
+
+.team-headshot-img {
+    border-radius: 16px;
+    transition: 0.25s;
+}
+
+.read-more {
+    font-family: futura-pt, sans-serif;
+    font-size: 14px;
+}
+
+.rotate-icon {
+    transform: rotate(180deg);
+}
+
+.team-meta {
+    font-family: futura-pt, sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.join-us-cta {
+    background-color: rgba(246,244,238, 0.45);
+    border-radius: 16px;
+    border: 1px solid #F6F4EE;
+    transition: .25s;
+}
+
+.join-us-cta:hover {
+    background-color: rgba(246,244,238, 1);
+    transition: .25s;
+}
+
+.trusted-caregiver-box {
+    transition: 0.25s;
+}
+
+.trusted-caregiver-box:hover {
+    background-color: rgba(246,244,238, 1);
+    transition: .25s;
+}
+
+.timeline-item {
+    fill-opacity: 0.5;
+    transition: 0.25s;
+}
+
+.timeline-item:hover {
+    fill-opacity: 1;
+    transition: 0.25s;
+}
+
+.zip-search-phone {
+    font-family: futura-pt, sans-serif;
+}
+
+@media (min-width: 416px) {
+    .home-hero {
+        background-position-x: -650px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .home-hero {
+        background-position-x: -450px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .home-hero {
+        background-position-x: center !important;
+        background-position-y: 100px;
+    }
+    
+}
+
+@media (min-width: 1200px) {
+    .location-map {
+        width: 426px !important;
+        height: 502px !important;
+    }
+}
+
+@media (min-width: 1691px) {
+    .home-hero {
+        background-size: auto;
+    }
+    .home-hero::before {
+        left: 50%;
+    }
+    .home-hero-sunburst {
+        display: none !important;
+    }
+}

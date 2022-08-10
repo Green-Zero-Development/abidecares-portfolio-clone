@@ -1,0 +1,184 @@
+.service-hero-bk {
+    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/02/service-hero-bk-img.png');
+}
+
+.small-title {
+    font-family: futura-pt, sans-serif;
+}
+
+.active-team-filter {
+    font-weight: 700;
+}
+
+.team-box-list {
+    min-height: 1000px;
+}
+
+.team-trigger-box {
+    max-width: 1600px;
+}
+
+.about-team-box {
+    max-width: 592px;
+    transition: 1s;
+}
+
+.hidden-team {
+    display: none;
+    height: 0px;
+    opacity: 0;
+    transition: 1s;
+}
+
+.cog-label {
+    display: none !important;
+}
+
+.active-contact-form-button {
+    background-color: #1E323F !important;
+    color: #F6F4EE !important;
+    padding: 13px 32px 10px 32px;
+    transition: 0.25s;
+}
+
+.contact-page-arrow-button {
+    min-width: 42px;
+    border-radius: 6em;
+    transition: 0.25s;
+}
+
+.contact-page-address:hover .contact-page-arrow-button {
+    background-color: #1E323F;
+    border-radius: 6em;
+    transition: 0.25s;
+}
+
+.contact-page-address:hover .contact-page-arrow-button path {
+    fill: #F6F4EE;
+    transition: 0.25s;
+}
+
+.trusted-caregiver-box {
+    background-color: rgba(246,244,238, 0.45);
+    border-radius: 16px;
+    border: 1px solid #F6F4EE;
+}
+
+.trusted-caregiver-img {
+    border-radius: 16px;
+}
+
+.trusted-caregiver-qual-title {
+    font-family: futura-pt, sans-serif;
+}
+
+.info-location-icon {
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.zip-search-input {
+    max-width: 180px;
+    padding: 14px 15px 10px 15px;
+    font-size: 14px;
+    color: #1E323F;
+    border: solid 1px #1E323F;
+    border-radius: 6em;
+}
+
+.zip-search-error {
+    transition: 0.25s;
+}
+
+.terms-hero-bk {
+    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/02/service-hero-bk-img.png');
+}
+
+.terms-content h1 {
+    font-size: 40px;
+}
+
+.terms-content h2 {
+    font-size: 20px;
+}
+
+.terms-content strong {
+    font-weight: 700;
+}
+
+.terms-content ul {
+    list-style: disc;
+    padding: 0 16px 0 16px;
+}
+
+.service-hero-bk {
+    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/02/service-hero-bk-img.png');
+}
+
+.breadcrumbs {
+    font-family: futura-pt, sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.info-location-icon {
+    font-family: futura-pt, sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.contact-page-arrow-button {
+    min-width: 42px;
+    border-radius: 6em;
+    transition: 0.25s;
+}
+
+.contact-page-address:hover .contact-page-arrow-button {
+    background-color: #1E323F;
+    border-radius: 6em;
+    transition: 0.25s;
+}
+
+.contact-page-address:hover .contact-page-arrow-button path {
+    fill: #F6F4EE;
+    transition: 0.25s;
+}
+
+@media (min-width: 416px) {
+   
+}
+
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 992px) {
+    .hidden-team {
+        width: 0px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .trusted-caregiver-img {
+        margin: -30px 0 0 -30px;
+    }
+
+    .trusted-caregiver-buttons {
+        margin-left: -60px;
+    }
+}
+
+@media (min-width: 1440px) {
+   
+}
+
+@media (min-width: 2000px) {
+    
+}

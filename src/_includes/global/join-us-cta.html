@@ -1,0 +1,54 @@
+{% set thisGlobalSection = [] %}
+{% for item in globalSections %}
+    {% if item.title == "Join Team CTA" %}
+        {% set thisGlobalSection = (thisGlobalSection.push({id: item.id, title: item.title, acf: item.acf}), thisGlobalSection) %}
+    {% endif %}
+{% endfor %}
+
+<style>
+    .join-us-sunburst {
+        width: 550px;
+    }
+    .join-us-img {
+        border-radius: 16px;
+    }
+</style>
+
+<div class="relative w-11/12 md:w-5/6 lg:w-3/4 max-w-8xl text-navy mx-auto mb-24 py-10 px-4 lg:px-6 xl:px-16 overflow-hidden join-us-cta ani-join-trig ani-join-1">
+    <div class="flex flex-wrap items-center flex-col-reverse md:flex-row">
+        <div class="w-full md:w-1/2">
+            <div class="relative z-20">
+                <h3 class="text-4xl xl:text-5xl xxl:text-h3-init capitalize pt-8 md:pt-0 pr-2 lg:pr-6">{{ thisGlobalSection[0].acf.title }}</h3>
+                <p class="py-5">{{ thisGlobalSection[0].acf.paragraph }}</p>
+                <a 
+                    {% if thisGlobalSection[0].acf.button.link_to_where == "A page on this site" %}
+                    href='{{ thisGlobalSection[0].acf.button.page_link }}'
+                    {% elseif thisGlobalSection[0].acf.button.link_to_where == "Another site" %}
+                    href='{{ thisGlobalSection[0].acf.button.offsite_link }}'
+                    {% elseif thisGlobalSection[0].acf.button.link_to_where == "A file" %}
+                            href='{{ thisGlobalSection[0].acf.button.file_link }}' 
+                    target='_blank'
+                    {% endif %}
+                >
+                    <button class="dark-outline-button">
+                        {{ thisGlobalSection[0].acf.button.text }}
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2">
+            <div class="">
+                <img class="relative join-us-img z-20" src="{{ thisGlobalSection[0].acf.image.url }}" />
+            </div>
+        </div>
+    </div>
+    <img class="absolute top-0 right-0 -mt-40 -mr-32 z-10 join-us-sunburst" src="https://inside.abidecares.com/wp-content/uploads/2022/02/sunburst.webp" />
+</div>
+
+<script>
+gsap.set(".ani-join-1", { y: 20, opacity: 0 });
+
+let aniJoin = gsap.timeline({scrollTrigger:{trigger: ".ani-join-trig",start: "top +=1000px"}});
+aniJoin.to(".ani-join-1", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+
+</script>

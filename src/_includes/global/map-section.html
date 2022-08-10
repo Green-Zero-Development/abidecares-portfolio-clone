@@ -1,0 +1,72 @@
+{% set thisGlobalSection = [] %}
+{% for item in globalSections %}
+    {% if item.title == "Map Section" %}
+        {% set thisGlobalSection = (thisGlobalSection.push({id: item.id, title: item.title, acf: item.acf}), thisGlobalSection) %}
+    {% endif %}
+{% endfor %}
+
+<style>
+    .map-list li {
+        font-family: "Recoleta", san-serif;
+        font-size: 22px;
+        font-weight: 400;
+    }
+</style>
+
+<div class="relative w-full bg-cover bg-top bg-no-repeat -mt-10 py-12 lg:px-12 z-10 home-map-section ani-map-trig">
+    <img src="" class="relative z-20" />
+    <div class="flex flex-wrap max-w-8xl mx-auto">
+        <div class="w-full md:w-5/12 xxl:w-1/3">
+            {% include "global/location-map.html" %}
+        </div>
+        <div class="w-full md:w-7/12 xxl:w-2/3 px-6 ani-map-2">
+            <h2 class="text-5xl sm:text-h3-init text-navy capitalize">{{ thisGlobalSection[0].acf.title }}</h2>
+            <p class="lg-p py-5">{{ thisGlobalSection[0].acf.paragraph }}</p>
+            <ul class="flex flex-wrap w-full text-navy text-xl xl:text-3xl pb-8 map-list">
+                {% for item in serviceAreas %}
+                <li id="{{ item.title }}" class="w-full md:w-1/2 pb-6 md:pb-2 pr-2">
+                    <a href="/service-areas/{{ item.slug }}">{{ item.locationProperName }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if wpage.template == "templates/our-services-area.php" %}
+            <a 
+                {% if thisGlobalSection[0].acf.button.link_to_where == "A page on this site" %}
+                href='{{ thisGlobalSection[0].acf.button.onsite_link }}'
+                {% elseif thisGlobalSection[0].acf.button.link_to_where == "Another site" %}
+                href='{{ thisGlobalSection[0].acf.button.offsite_link }}' target='_blank'
+                {% elseif thisGlobalSection[0].acf.button.link_to_where == "A file" %}
+                        href='{{ thisGlobalSection[0].acf.button.file_link }}' 
+                target='_blank'
+                {% endif %}
+            >
+                <button class="dark-outline-button">
+                    {{ thisGlobalSection[0].acf.button.text }}
+                </button>
+            </a>
+            {% else %}
+            <div class="relative">
+                <form id="zip-search-form" class="lg:flex items-center">
+                    <input id="zip-to-search" type="text" placeholder="Enter Zip Code" class="mb-4 lg:mb-0 lg:mr-4 zip-search-input">
+                    <input type="submit" value="Get Started" />
+                </form>
+                <div id="zip-incorrect" class="absolute left-0 opacity-0 mt-5 zip-search-error">
+                    <div class="absolute top-0 zip-search-module-arrow"></div>
+                    The typed zip code is incorrect, please re-enter.
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include "global/location-map-script.html" %}
+
+<script>
+gsap.set(".ani-map-1", { y: 20, opacity: 0 });
+gsap.set(".ani-map-2", { y: 20, opacity: 0 });
+
+let mapAni = gsap.timeline({scrollTrigger:{trigger: ".ani-map-trig",start: "top +=1000px"}});
+mapAni.to(".ani-map-1", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-map-2", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+</script>

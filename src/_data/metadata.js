@@ -1,0 +1,1 @@
+module.exports = { baseUrl: "https://inside.abidecares.com", apiUrl: "https://inside.abidecares.com/wp-content/plugins/custom-data-endpoint/data", cacheInterval: '1m' };

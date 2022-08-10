@@ -1,0 +1,83 @@
+.home-hero {
+    clip-path: ellipse(170% 55% at 48% 44%);
+    background-position-x: -850px;
+    /* max-width: 1691px; */
+    margin-left: auto;
+    margin-right: auto;
+    background-position: center;
+    overflow-x: hidden;
+}
+
+.home-hero-sunburst {
+    width: 600px;
+    margin-top: -60px;
+    margin-right: -60px;
+}
+
+.home-map-section {
+   background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/03/gradient-circle-bk.png');
+}
+
+.map-list {
+    font-family: "Recoleta", san-serif;
+}
+
+.services-timeline {
+    scroll-behavior: smooth;
+}
+
+.services-timeline::-webkit-scrollbar {
+    display: none;
+}
+
+.timeline-service {
+    opacity: 0.45;
+    transition: 0.25s;
+}
+
+.timeline-service:hover {
+    opacity: 1;
+    transition: 0.25s;
+}
+
+@media (min-width: 416px) {
+   
+}
+
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 992px) {
+    .home-hero::before {
+        content: '';
+        background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/02/sunburst.webp');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 800px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: -22%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .home-hero::before {
+        right: -5%;
+    }
+}
+
+@media (min-width: 1440px) {
+    .home-hero::before {
+        right: 0;
+    }
+}
+
+@media (min-width: 2000px) {
+    
+}

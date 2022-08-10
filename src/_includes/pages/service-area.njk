@@ -1,0 +1,533 @@
+---
+layout: base.njk
+---
+
+{% set regionalAdmins = [] %}
+{% set areaMarketingManagers = [] %}
+{% set operationsManagers = [] %}
+{% set operationsCoordinators = [] %}
+{% set operationsAssistants = [] %}
+{% set clientCareNurses = [] %}
+{% set otherRoles = [] %}
+{% for item in teamMembers %}
+   {% set jobTitle = item.jobTitle %}
+   {% if 'Regional Administrator' in jobTitle %}
+        {% set regionalAdmins = (regionalAdmins.push(item), regionalAdmins) %}
+    {% elseif 'Area Marketing Manager' in jobTitle %}
+        {% set areaMarketingManagers = (areaMarketingManagers.push(item), areaMarketingManagers) %}
+    {% elseif 'Operations Manager' in jobTitle %}
+        {% set operationsManagers = (operationsManagers.push(item), operationsManagers) %}
+    {% elseif 'Operations Coordinator' in jobTitle %}
+        {% set operationsCoordinators = (operationsCoordinators.push(item), operationsCoordinators) %}
+    {% elseif 'Operations Assistant' in jobTitle %}
+        {% set operationsAssistants = (operationsAssistants.push(item), operationsAssistants) %}
+    {% elseif 'Client Care Nurse' in jobTitle %}
+        {% set clientCareNurses = (clientCareNurses.push(item), clientCareNurses) %}
+    {% else %}
+        {% set otherRoles = (otherRoles.push(item), otherRoles) %}
+   {% endif %}
+{% endfor %}
+
+<div class="bg-cover xxl:bg-contain bg-top bg-no-repeat -mt-32 pt-48 pb-12 service-hero-bk ani-area-sing-trig-1">
+    <div class="max-w-8xl mx-auto pb-16 px-6 md:px-12">
+        <style>
+            .service-hero-img {
+                background-image: url('{{ serviceArea.heroSection.image.url }}');
+                border-radius: 16px;
+            }
+        </style>
+        <div class="flex flex-wrap flex-col-reverse md:flex-row items-center">
+            <div class="w-full md:w-5/12 py-12 md:py-0 md:pr-4 xl:pr-8 text-navy ani-area-sing-1">
+                <div class="">
+                    <h6 class="breadcrumbs"><a href="/">Home</a> / <a href="/service-areas/">Our Service Areas</a> / {{ serviceArea.city }}, {{ serviceArea.state }}</h6>
+                    <h1 class="text-5xl lg:text-h3-init capitalize pt-2">{{ serviceArea.locationProperName }}</h1>
+                    <h6 class="text-base pt-2 pb-4">Located in {{ serviceArea.city }}</h6>
+                    <p class="text-base lg:text-lg-p-init lg:leading-normal">{{ serviceArea.heroSection.paragraph }}</p>
+                    <a class="text-navy font-bold capitalize text-button"
+                        {% if serviceArea.heroSection.button.link_to_where == "A page on this site" %}
+                        href='{{ serviceArea.heroSection.button.onsite_link }}'
+                        {% elseif serviceArea.heroSection.button.link_to_where == "Another site" %}
+                        href='{{ serviceArea.heroSection.button.offsite_link }}' target='_blank'
+                        {% elseif serviceArea.heroSection.button.link_to_where == "A file" %}
+                                href='{{ serviceArea.heroSection.button.file_link }}' 
+                        target='_blank'
+                        {% endif %}
+                    >
+                        {{ serviceArea.heroSection.button.text }}
+                    </a>
+                    <div class="flex flex-wrap pt-4">
+                        <div class="w-full lg:w-2/3 pb-6 lg:pb-0">
+                            <svg class="mb-3" width="25" height="32" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <address class="info-location-icon">
+                                {{ serviceArea.street }}<br />
+                                {{ serviceArea.city }}, {{ serviceArea.state }} {{ serviceArea.zipCode }}
+                            </address>
+                        </div>
+                        <div class="w-full lg:w-1/3">
+                            <svg class="mb-3" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24.5808 32H24.5336C18.0658 31.8408 11.8937 29.2581 7.23981 24.7635C2.74382 20.1135 0.159806 13.9433 0.000186499 7.47694C-0.00933798 6.57111 0.346298 5.69956 0.986964 5.05915L5.55623 0.492964C6.21367 -0.164321 7.27938 -0.164321 7.93682 0.492964L14.6712 7.22776C15.3284 7.88524 15.3284 8.95102 14.6712 9.6085L11.9842 12.2906C12.4825 14.1527 13.4005 15.8759 14.6678 17.3283C16.1175 18.5961 17.8384 19.5148 19.6984 20.0138L22.3921 17.3299C23.0496 16.6727 24.1153 16.6727 24.7727 17.3299L31.5071 24.0647C32.1643 24.7222 32.1643 25.788 31.5071 26.4455L26.9378 31.0134C26.3148 31.6429 25.4665 31.998 24.5808 32ZM6.74316 4.06577H6.73474L3.36756 7.4399C3.50485 13.0275 5.73523 18.3599 9.61704 22.381C13.6382 26.2617 18.9691 28.4921 24.5555 28.6309L27.9345 25.2551L23.5706 20.9027L21.3937 23.0781C21.0823 23.393 20.6581 23.5706 20.2152 23.5714C20.097 23.5715 19.979 23.559 19.8634 23.5344C17.0579 22.9137 14.453 21.599 12.2872 19.7107C10.399 17.5448 9.08437 14.9397 8.46378 12.1341C8.34671 11.5764 8.51966 10.9973 8.9234 10.5951L11.0986 8.41813L6.74316 4.06577Z" fill="#2E3A59"/>
+                            </svg>
+                            <a href="tel:{{ serviceArea.phoneNumber }}" class="info-location-icon">
+                                {{ serviceArea.phoneNumber }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-7/12 md:pl-4 xl:pl-8 ani-area-sing-2">
+                <div class="bg-cover bg-center py-24 sm:py-64 service-hero-img"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-8xl mx-auto pb-16 px-6 md:px-12">
+    <style>
+        .about-location-img {
+            background-image: url('{{ serviceArea.aboutSection.image.url }}');
+            border-radius: 16px;
+        }
+    </style>
+    <div class="flex flex-wrap items-center">
+        <div class="w-full md:w-5/12 md:pr-4 xl:pr-8 ani-area-sing-3">
+            <div class="bg-cover bg-center py-24 sm:py-64 about-location-img"></div>
+        </div>
+        <div class="w-full md:w-7/12 max-w-2xl py-12 md:py-0 md:pl-4 xl:pl-8 text-navy ani-area-sing-4">
+            <div class="">
+                <h3 class="text-5xl xl:text-h3-init capitalize">{{ serviceArea.aboutSection.title }}</h3>
+                <p class="text-base lg:text-lg-p-init lg:leading-normal py-6">{{ serviceArea.aboutSection.paragraph }}</p>
+                <a 
+                    {% if serviceArea.aboutSection.button.link_to_where == "A page on this site" %}
+                    href='{{ serviceArea.aboutSection.button.onsite_link }}'
+                    {% elseif serviceArea.aboutSection.button.link_to_where == "Another site" %}
+                    href='{{ serviceArea.aboutSection.button.offsite_link }}' target='_blank'
+                    {% elseif serviceArea.aboutSection.button.link_to_where == "A file" %}
+                            href='{{ serviceArea.aboutSection.button.file_link }}' 
+                    target='_blank'
+                    {% endif %}
+                >
+                    <button class="outline-button">
+                        {{ serviceArea.aboutSection.button.text }}
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if serviceArea.servicesSection.title %}
+
+<div class="w-11/12 md:w-5/6 lg:w-3/4 max-w-8xl text-navy mx-auto py-10 px-4 md:px-8 location-services-box ani-area-sing-trig-2 ani-area-sing-5">
+    <div class="flex flex-wrap">
+        <div class="w-full xl:w-1/5 pb-8">
+            <h4 class="text-4xl xxl:text-5xl pb-4">{{ serviceArea.servicesSection.title }}</h4>
+            <a 
+                {% if serviceArea.servicesSection.button.link_to_where == "A page on this site" %}
+                href='{{ serviceArea.servicesSection.button.onsite_link }}'
+                {% elseif serviceArea.servicesSection.button.link_to_where == "Another site" %}
+                href='{{ serviceArea.servicesSection.button.offsite_link }}' target='_blank'
+                {% elseif serviceArea.servicesSection.button.link_to_where == "A file" %}
+                        href='{{ serviceArea.servicesSection.button.file_link }}' 
+                target='_blank'
+                {% endif %}
+            >
+                <button class="outline-button">
+                    {{ serviceArea.servicesSection.button.text }}
+                </button>
+            </a>
+        </div>
+        <div class="w-full xl:w-4/5">
+            <p class="lg-p">{{ serviceArea.servicesSection.paragraph }}</p>
+            <ul class="md:flex flex-wrap list-disc pt-6 location-services-list">
+                {% for item in serviceArea.servicesSection.services %}
+                <li class="w-full md:w-1/2 xl:w-1/3 location-services-list-item">{{ item.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% if serviceArea.awards %}
+
+<div class="max-w-7xl mx-auto pt-12 px-6 ani-area-sing-6">
+    <div class="flex flex-wrap">
+        {% for item in serviceArea.awards %}
+            <img src="{{ item.award.url }}" class="w-64 h-full mx-auto p-12" />
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}
+
+{% set doOnce = 0 %}
+
+<div class="max-w-7xl mx-auto py-24 ani-area-sing-trig-3">
+    {% for item in teamMembers %}
+        {% for cat in item.types %}
+            {% if (cat == serviceArea.locationProperName) and (doOnce !== 1) %}
+                <div class="max-w-4xl text-navy text-center mx-auto px-6 ani-area-sing-7">
+                    <h2 class="text-5xl sm:text-h3-init text-navy capitalize">{{ serviceArea.teamSection.title }}</h2>
+                    <p class="lg-p pt-5 pb-10">{{ serviceArea.teamSection.paragraph }}</p>
+                </div>
+                {% set doOnce = 1 %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <div class="flex flex-wrap px-6 xl:px-12 ani-area-sing-8">
+        {% for item in regionalAdmins %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for item in areaMarketingManagers %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for item in operationsManagers %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for item in operationsCoordinators %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for item in operationsAssistants %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for item in clientCareNurses %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for item in otherRoles %}
+            {% for cat in item.types %}
+                {% if cat == serviceArea.locationProperName %}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0">
+                    <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                        <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                            <style>
+                                .team-headshot-{{ item.id }} {
+                                    {% if item.headshot.url %}
+                                    background-image: url('{{ item.headshot.url }}');
+                                    {% else %}
+                                    background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                    {% endif %}
+                                    filter: grayscale(100);
+                                }
+                            </style>
+                            <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+
+                            </div>
+                            <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                        </div>
+                        <div class="text-navy py-2 md:px-4">
+                            <h6>{{ item.name }}</h6>
+                            <div class="flex items-center pb-2 team-meta">
+                                <span>{{ item.jobTitle }}</span>
+                                <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                                </svg>
+                                <span>{{ item.location }}</span>
+                            </div>
+                            {% if item.email %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                                </div>
+                            {% endif %}
+                            {% if item.phone %}
+                                <div class="w-full text-sm pt-1">
+                                    <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+
+{% include "global/join-us-cta.html" %}
+
+<script>
+gsap.set(".ani-area-sing-1", { y: -20, opacity: 0 });
+gsap.set(".ani-area-sing-2", { y: 20, opacity: 0 });
+gsap.set(".ani-area-sing-3", { y: -20, opacity: 0 });
+gsap.set(".ani-area-sing-4", { y: 20, opacity: 0 });
+
+let aniServices1 = gsap.timeline({scrollTrigger:{trigger: ".ani-area-sing-trig-1",start: "top +=100px"}});
+aniServices1.to(".ani-area-sing-1", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-area-sing-2", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+  .to(".ani-area-sing-3", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+  .to(".ani-area-sing-4", {y: 0,opacity: 1, ease: "sine", duration: 0.5});
+
+gsap.set(".ani-area-sing-5", { y: 20, opacity: 0 });
+gsap.set(".ani-area-sing-6", { y: 20, opacity: 0 });
+
+let aniServices2 = gsap.timeline({scrollTrigger:{trigger: ".ani-area-sing-trig-2",start: "top +=1000px"}});
+aniServices2.to(".ani-area-sing-5", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-area-sing-6", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+
+gsap.set(".ani-area-sing-7", { y: 20, opacity: 0 });
+gsap.set(".ani-area-sing-8", { y: 20, opacity: 0 });
+
+let aniServices3 = gsap.timeline({scrollTrigger:{trigger: ".ani-area-sing-trig-3",start: "top +=1000px"}});
+aniServices3.to(".ani-area-sing-7", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-area-sing-8", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+</script>

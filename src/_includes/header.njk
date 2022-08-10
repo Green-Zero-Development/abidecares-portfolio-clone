@@ -1,0 +1,83 @@
+{% set logos = [] %}
+{% set social = [] %}
+{% for item in globalData %}
+    {% if item.title == "Logos" %}
+        {% set logos = (logos.push({id: item.id, title: item.title, acf: item.acf}), logos) %}
+    {% elseif item.title == "Social Media Links" %}
+        {% set social = (social.push({id: item.id, title: item.title, acf: item.acf}), social) %}
+    {% endif %}
+{% endfor %}
+
+<header class="" x-data="{ headerScrolled: true, mobileMenuTrig: false }" @scroll.window="setTimeout(() => headerScrolled = (window.pageYOffset > 0) ? false : true, 200)">
+    <div id="header-float-jump-fix" class="hidden w-full header-float-jump-fix" :class="{ 'isSticky': !headerScrolled }"></div>
+    <div id="header-container" class="relative flex flex-wrap w-full bg-transparent py-6 px-8 xl:px-16 z-50 header-container" x-data="{ {% for item in menus.mainMenu %}{% if item.children|length %}dropdown{{ item.ID }}: false, {% endif %}{% endfor %}dropdown: false }" :class="{ 'header-fixed top-0 bg-white z-50 shadow-md': !headerScrolled }">
+        <div class="flex flex-wrap items-center justify-between w-full max-w-7xl mx-auto">
+            <a href="/" class="w-full lg:w-48">
+                <img class="hidden lg:block site-logo" src="{{ logos[0].acf.dark_logo.url }}" />
+                <img class="lg:hidden mx-auto site-mobile-logo" src="{{ logos[0].acf.dark_logo.url }}" />
+            </a>
+            <ul class="hidden relative lg:flex items-center">
+                {% for item in menus.mainMenu %}
+                    {% if item.children|length %}
+                        <li class="relative -mb-5 pb-5 mr-6 xl:mr-10 li-with-drop menu-item {% if loop.last == true %}menu-last{% endif %}" @mouseover="dropdown{{ item.ID }} = true" @click="dropdown{{ item.ID }} = true" @mouseleave="dropdown{{ item.ID }} = false">
+                            <a href="{{ item.url }}">{{ item.title }}</a><i class="pt-1 fas fa-angle-down"></i>
+                            <ul class="absolute top-0 left-0 right-0 flex flex-wrap w-full mt-10 py-8 px-6 header-dropdown" x-show="dropdown{{ item.ID }}" x-transition x-cloak>
+                                <div class="absolute top-0 left-0 right-0 mx-auto dropdown-arrow"></div>
+                                {% for item1 in item.children %}
+                                    <a class="w-1/2 py-1" href="{{ item1.url }}">
+                                        <li class="li-in-drop menu-item">
+                                            {{ item1.title }}
+                                        </li>
+                                    </a>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% else %}
+                    <a href="{{ item.url }}">
+                        <li class="mr-6 xl:mr-10 li-no-drop menu-item {% if loop.last == true %}menu-last{% endif %}">
+                            {{ item.title }}
+                        </li>
+                    </a>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <img id="mobile-menu-open" class="fixed lg:hidden w-16 bottom-0 left-0 right-0 mb-8 mx-auto mobile-menu-open" src="https://inside.abidecares.com/wp-content/uploads/2022/02/Mobile-Hamburger-In-Active.png" x-on:click="mobileMenuTrig = ! mobileMenuTrig" :class="{ 'hidden': mobileMenuTrig }" />
+        <img id="mobile-menu-close" class="fixed lg:hidden w-16 bottom-0 left-0 right-0 mb-8 mx-auto mobile-menu-close" src="https://inside.abidecares.com/wp-content/uploads/2022/02/Mobile-Hamburger-Active.png" x-on:click="mobileMenuTrig = ! mobileMenuTrig" :class="{ 'hidden': !mobileMenuTrig }" />
+        <div class="absolute top-0 left-0 w-full h-32 mobile-menu-opacity-box" x-show="mobileMenuTrig" x-cloak></div>
+        <div class="absolute top-0 left-0 w-full h-56 mobile-menu-curve" x-show="mobileMenuTrig" x-cloak></div>
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-navy overflow-y-scroll mt-16 z-50" x-show="mobileMenuTrig" x-cloak x-data="{ {% for item in menus.mobileMenu %}{% if item.children|length %}dropdown{{ item.ID }}: false, {% endif %}{% endfor %}dropdown: false }">
+            <ul id="mobile-items" class="flex flex-wrap w-full align-text-top pt-6 pb-80 px-6 sm:px-16 overflow-scroll mobile-items">
+                {% for item in menus.mobileMenu %}
+                {% if item.children|length %}
+                    <li class="relative flex flex-wrap w-full items-center justify-between pb-6 mobile-menu-single mobile-menu-with-children" x-on:click="dropdown{{ item.ID }} = !dropdown{{ item.ID }}">
+                        {{ item.title }}<i class="text-xl ml-auto mobile-children-icon fas fa-angle-down" :class="{ 'mobile-icon-active': dropdown{{ item.ID }} }"></i>
+                        <ul class="w-full" x-show="dropdown{{ item.ID }}" x-transition x-cloak>
+                            {% for item1 in item.children %}
+                            <a class="w-full pb-6" href="{{ item1.url }}">
+                                <li class="pb-2">{{ item1.title }}</li>
+                            </a>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <a class="w-full" href="{{ item.url }}">
+                        <li class="pb-6 mobile-menu-single">{{ item.title }}</li>
+                    </a>
+                {% endif %}
+                {% endfor %}
+                <div class="flex w-full pt-8">
+                    <a href="{% for item in social[0].acf.value_list %}{% if item.type == "LinkedIn" %}{{ item.value }}{% endif %}{% endfor %}" target="_blank">
+                        <svg class="w-12 mr-8" fill="#F6F4EE" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+                    </a>
+                    <a href="{% for item in social[0].acf.value_list %}{% if item.type == "Instagram" %}{{ item.value }}{% endif %}{% endfor %}" target="_blank">
+                        <svg class="w-12 mr-8" fill="#F6F4EE" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                    </a>
+                    <a href="{% for item in social[0].acf.value_list %}{% if item.type == "Facebook" %}{{ item.value }}{% endif %}{% endfor %}" target="_blank">
+                        <svg class="w-12" fill="#F6F4EE" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</header>

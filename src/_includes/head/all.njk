@@ -1,0 +1,18 @@
+{% set tracking = [] %}
+{% for item in globalData %}
+    {% if item.title == "Tracking Code" %}
+        {% set tracking = (tracking.push({id: item.id, title: item.title, acf: item.acf}), tracking) %}
+    {% endif %}
+{% endfor %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ yoastHead|safe }}
+<link rel="apple-touch-icon" sizes="76x76" href="/favi/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
+<link rel="manifest" href="/favi/site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% for item in tracking[0].acf.value_list %}{% if item.type == "GTM" %}{{ item.value | safe }}{% endif %}{% endfor %}

@@ -1,0 +1,157 @@
+.header-container {
+  align-items: center;
+  z-index: 999;
+  transition: .25s;
+}
+
+.header-fixed {
+  background-color: white;
+  position: fixed !important;
+}
+
+.header-float-jump-fix {
+  height: 102px;
+}
+
+.isSticky {
+  display: block !important;
+  margin-top: 0px !important;
+}
+
+.site-logo {
+  max-width: 180px;
+}
+
+.site-mobile-logo {
+  max-width: 180px;
+}
+
+.mobile-menu-curve {
+  overflow: hidden;
+  background-color: #1E323F;
+  clip-path: ellipse(70% 37% at 50% 50%);
+}
+
+.mobile-menu-opacity-box {
+  background-color: #000000;
+  opacity: 0.5;
+}
+
+.mobile-items {
+  
+}
+
+.menu-item {
+  font-family: futura-pt, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1E323F;
+  letter-spacing: 1.1px;
+  transition: 0.25s;
+}
+
+.menu-item:hover {
+  text-decoration: underline;
+  transition: 0.25s;
+}
+
+.menu-last {
+  background-color: #1E323F;
+  font-family: futura-pt, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #F6F4EE;
+  padding: 13px 32px 10px 32px;
+  border-radius: 32px;
+  margin-right: 0px !important;
+  transition: 0.25s;
+}
+
+.menu-last:hover {
+  background-color: #2E4D62;
+  text-decoration: none !important;
+  transition: 0.25s;
+}
+
+.mobile-menu-single {
+  font-family: "Recoleta", san-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #F6F4EE;
+  letter-spacing: 1.1px;
+  transition: 0.25s;
+}
+
+.mobile-menu-with-children {
+  font-family: "Recoleta", san-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #F6F4EE;
+  letter-spacing: 1.1px;
+  transition: 0.25s;
+}
+
+.mobile-icon-active {
+  transform: rotate(180deg);
+  color: #CC5500;
+}
+
+.mobile-menu-open {
+  z-index: 999;
+}
+
+.mobile-menu-close {
+  z-index: 999;
+}
+
+.header-dropdown {
+  width: 320px;
+  background-color: #F6F4EE;
+  border: 1px solid #E1DAC6;
+  margin-left: -65%;
+  border-radius: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.dropdown-arrow {
+  width: 16px;
+  height: 16px;
+  background-color: #F6F4EE;
+  background-image: -webkit-linear-gradient(left top, #F6F4EE, #F6F4EE 40%, transparent 60%, transparent 100%);
+  transform: rotate(45deg);
+  margin-top: -9px;
+  border-top: 1px solid #E1DAC6;
+  border-left: 1px solid #E1DAC6;
+  z-index: -1;
+}
+
+
+
+@media (min-width: 416px) {
+   
+}
+
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 992px) {
+    
+}
+
+@media (min-width: 1200px) {
+    
+}
+
+@media (min-width: 1440px) {
+    
+}
+
+@media (min-width: 2000px) {
+    
+}

@@ -1,0 +1,113 @@
+<style>
+    .testimonial-box {
+        background-color: #F6F4EE;
+        padding: 32px;
+        border-radius: 8px;
+    }
+    .testimonial-text {
+        font-family: futura-pt, sans-serif;
+        font-size: 16px;
+        padding-bottom: 32px;
+    }
+    .testimonial-text em {
+        font-family: "Recoleta", san-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    .testimonial-seperator {
+        width: 80px;
+        height: 2px;
+        background-color: #1E323F;
+        opacity: .50;
+    }
+    .testimonial-name {
+        font-size: 24px;
+    }
+    .testimonial-details {
+        font-size: 10px;
+    }
+    .swiper-slide .testimonial-box {
+        opacity: 0.50;
+        transform: scale(0.95);
+        color: #1E323F;
+        transition: transform 1s;
+    }
+    .swiper-slide-active .testimonial-box {
+        background-color: rgba(246,244,238, 1);
+        box-shadow: 0px 0px 6px rgba(30, 50, 63, 0.25);
+        opacity: 1;
+        transform: scale(1);
+       
+    }
+    .swiper-slide-prev .testimonial-box {
+        background-color: rgba(246,244,238, 1);
+        opacity: 1;
+        transform: scale(0.95);
+    }
+    .swiper-slide-next .testimonial-box {
+        background-color: rgba(246,244,238, 1);
+        opacity: 1;
+        transform: scale(0.95);
+    }
+    .swiper-pagination {
+        height: 6px;
+        width: auto !important;
+        padding: 0 25px 0 25px;
+    }
+    .swiper-pagination-bullet-active {
+        width: 24px;
+        background-color: #1E323F;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="ani-testmon-trig ani-testmon-1">
+    <div class="max-w-4xl text-navy text-center mx-auto px-6">
+        <h2 class="text-5xl sm:text-h3-init text-navy capitalize">What you are saying</h2>
+    </div>
+</div>
+
+<div class="pt-8 pb-32 px-6 md:px-0 home-process-section">
+    <div class="swiper ani-testmon-2">
+        <div class="swiper-wrapper">
+            {% for item in testimonials %}
+                {% if loop.index < 11 %}
+                <div class="swiper-slide">
+                    <div class="testimonial-box">
+                        <p class="testimonial-text">{{ item.text | safe }}</p>
+                        <div class="mb-4 testimonial-seperator"></div>
+                        <h5 class="testimonial-name">{{ item.name }}</h5>
+                        <p class="testimonial-details">{{ item.location }} {{ item.jobTitle }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="flex items-center justify-center w-full sm:py-12 ani-testmon-3">
+            <svg class="opacity-75 hover:opacity-100 cursor-pointer swiper-button-prev" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9997 16.9998C13.9997 16.7438 14.0977 16.4878 14.2927 16.2928L19.2927 11.2928C19.6838 10.9018 20.3158 10.9018 20.7067 11.2928C21.0977 11.6838 21.0977 12.3158 20.7067 12.7068L16.4137 16.9998L20.7067 21.2928C21.0977 21.6838 21.0977 22.3158 20.7067 22.7068C20.3157 23.0978 19.6837 23.0978 19.2927 22.7068L14.2927 17.7068C14.0977 17.5118 13.9997 17.2558 13.9997 16.9998Z" fill="#1E323F"/>
+                <circle cx="17.5" cy="17.5" r="16.5" transform="rotate(-180 17.5 17.5)" stroke="#1E323F"/>
+            </svg>
+            <div class="relative swiper-pagination">
+
+            </div>
+            <svg class="opacity-75 hover:opacity-100 cursor-pointer swiper-button-next" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M21.0002 18.0002C21.0002 18.2562 20.9023 18.5122 20.7072 18.7072L15.7072 23.7072C15.3162 24.0982 14.6843 24.0982 14.2932 23.7072C13.9022 23.3162 13.9022 22.6842 14.2932 22.2932L18.5862 18.0002L14.2932 13.7072C13.9022 13.3162 13.9022 12.6842 14.2932 12.2932C14.6842 11.9022 15.3162 11.9022 15.7072 12.2932L20.7072 17.2932C20.9023 17.4882 21.0002 17.7442 21.0002 18.0002Z" fill="#1E323F"/>
+                <circle cx="17.5" cy="17.5" r="16.5" stroke="#1E323F"/>
+            </svg>
+        </div>
+        <div class="rounded-lg swiper-scrollbar"></div>
+    </div>
+</div>
+
+<script>
+gsap.set(".ani-testmon-1", { y: 20, opacity: 0 });
+gsap.set(".ani-testmon-2", { y: 20, opacity: 0 });
+gsap.set(".ani-testmon-3", { y: 20, opacity: 0 });
+
+let ani1 = gsap.timeline({scrollTrigger:{trigger: ".ani-testmon-trig",start: "top +=1000px"}});
+ani1.to(".ani-testmon-1", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+    .to(".ani-testmon-2", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+    .to(".ani-testmon-3", {y: 0,opacity: 1, ease: "sine", duration: 0.5});
+
+</script>

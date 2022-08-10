@@ -1,0 +1,195 @@
+<style>
+.home-hero {
+    background-image: url('{{ homePage[0].heroSection.image.url }}');
+}
+</style>
+
+<div class="relative bg-cover bg-no-repeat -mt-56 pt-48 pb-40 z-20 home-hero ani-home-trig-1 ani-home-05">
+    <div class="relative w-full pt-24 z-20">
+        <div class="relative w-full max-w-8xl mx-auto px-4 sm:px-8 xl:px-16 z-20 home-hero-content ani-home-1">
+            <div class="max-w-md md:max-w-2xl">
+                <h1 class="text-6xl xs:text-7xl md:text-h1-init text-navy capitalize pr-8">{{ homePage[0].heroSection.title }}</h1>
+                <p class="text-xl text-navy font-medium pt-1 pb-8">{{ homePage[0].heroSection.paragraph }}</p>
+                <a 
+                    {% if homePage[0].heroSection.button.link_to_where == "A page on this site" %}
+                    href='{{ homePage[0].heroSection.button.onsite_link }}'
+                    {% elseif homePage[0].heroSection.button.link_to_where == "Another site" %}
+                    href='{{ homePage[0].heroSection.button.offsite_link }}' target='_blank'
+                    {% elseif homePage[0].heroSection.button.link_to_where == "A file" %}
+                            href='{{ homePage[0].heroSection.button.file_link }}' 
+                    target='_blank'
+                    {% endif %}
+                 >
+                    <button class="transparent-button">{{ homePage[0].heroSection.button.text }}</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-12"></div>
+
+{% include "global/map-section.html" %}
+
+<div class="max-w-6xl mx-auto text-center pt-24 px-6 ani-home-trig-3 ani-home-4">
+    <h2 class="text-5xl sm:text-h3-init text-navy capitalize pb-4">{{ homePage[0].servicesTimeline.title }}</h2>
+    <p class="lg-p">{{ homePage[0].servicesTimeline.paragraph }}</p>
+</div>
+
+<div id="mobile-services-timeline" class="w-full mx-auto pt-16 pb-16 overflow-scroll services-timeline ani-home-5">
+    {% include "global/services-timeline.html" %}
+</div>
+
+<div class="xl:hidden flex justify-center mx-auto py-12 ani-home-6">
+    <svg id="prev-timeline" class="mr-8" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9997 16.9998C13.9997 16.7438 14.0977 16.4878 14.2927 16.2928L19.2927 11.2928C19.6838 10.9018 20.3158 10.9018 20.7067 11.2928C21.0977 11.6838 21.0977 12.3158 20.7067 12.7068L16.4137 16.9998L20.7067 21.2928C21.0977 21.6838 21.0977 22.3158 20.7067 22.7068C20.3157 23.0978 19.6837 23.0978 19.2927 22.7068L14.2927 17.7068C14.0977 17.5118 13.9997 17.2558 13.9997 16.9998Z" fill="#1E323F"/>
+        <circle cx="17.5" cy="17.5" r="16.5" transform="rotate(-180 17.5 17.5)" stroke="#1E323F"/>
+    </svg>
+    <svg id="next-timeline" class="ml-8" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.0002 18.0002C21.0002 18.2562 20.9023 18.5122 20.7072 18.7072L15.7072 23.7072C15.3162 24.0982 14.6843 24.0982 14.2932 23.7072C13.9022 23.3162 13.9022 22.6842 14.2932 22.2932L18.5862 18.0002L14.2932 13.7072C13.9022 13.3162 13.9022 12.6842 14.2932 12.2932C14.6842 11.9022 15.3162 11.9022 15.7072 12.2932L20.7072 17.2932C20.9023 17.4882 21.0002 17.7442 21.0002 18.0002Z" fill="#1E323F"/>
+        <circle cx="17.5" cy="17.5" r="16.5" stroke="#1E323F"/>
+    </svg>
+</div>
+
+<div class="max-w-5xl mx-auto text-center text-navy pb-32 px-6 ani-home-trig-4 ani-home-7">
+    <h3 class="text-3xl capitalize">{{ homePage[0].servicesTimeline.after_timeline_title }}</h3>
+    <p class="py-5 px-6 lg:px-32">{{ homePage[0].servicesTimeline.after_timeline_paragraph }}</p>
+    <a 
+        {% if homePage[0].servicesTimeline.button.link_to_where == "A page on this site" %}
+        href='{{ homePage[0].servicesTimeline.button.onsite_link }}'
+        {% elseif homePage[0].servicesTimeline.button.link_to_where == "Another site" %}
+        href='{{ homePage[0].servicesTimeline.button.offsite_link }}' target='_blank'
+        {% elseif homePage[0].servicesTimeline.button.link_to_where == "A file" %}
+                href='{{ homePage[0].servicesTimeline.button.file_link }}' 
+        target='_blank'
+        {% endif %}
+    >
+        <button class="outline-button">
+            {{ homePage[0].servicesTimeline.button.text }}
+        </button>
+    </a>
+</div>
+
+<div class="max-w-7xl mx-auto pb-16 px-6 ani-home-trig-5">
+    <style>
+        .who-abide-img {
+            background-image: url('{{ homePage[0].whoAbideSection.image.url }}');
+            border-radius: 16px;
+        }
+    </style>
+    <div class="flex flex-wrap items-center">
+        <div class="w-full md:w-1/2 ani-home-8">
+            <div class="bg-cover bg-center py-24 sm:py-48 who-abide-img"></div>
+        </div>
+        <div class="w-full md:w-1/2 py-12 md:py-0 md:pl-4 xl:pl-12 pr-4 text-navy ani-home-9">
+            <div class="">
+                <h3 class="text-5xl lg:text-h3-init capitalize">{{ homePage[0].whoAbideSection.title }}</h3>
+                <p class="text-base lg:text-lg-p-init lg:leading-normal py-6">{{ homePage[0].whoAbideSection.paragraph }}</p>
+                <a class="text-navy font-bold capitalize"
+                    {% if homePage[0].whoAbideSection.button.link_to_where == "A page on this site" %}
+                    href='{{ homePage[0].whoAbideSection.button.onsite_link }}'
+                    {% elseif homePage[0].whoAbideSection.button.link_to_where == "Another site" %}
+                    href='{{ homePage[0].whoAbideSection.button.offsite_link }}' target='_blank'
+                    {% elseif homePage[0].whoAbideSection.button.link_to_where == "A file" %}
+                            href='{{ homePage[0].whoAbideSection.button.file_link }}' 
+                    target='_blank'
+                    {% endif %}
+                >
+                    <button class="outline-button">
+                        {{ homePage[0].whoAbideSection.button.text }}
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto pb-16 md:pb-32 px-6 the-benefits ani-home-trig-6">
+    <style>
+        .the-benefits-img {
+            background-image: url('{{ homePage[0].benefitsSection.image.url }}');
+            border-radius: 16px;
+        }
+    </style>
+    <div class="flex flex-wrap flex-col-reverse md:flex-row items-center">
+        <div class="w-full md:w-5/12 py-12 md:py-0 lg:pl-10 md:pr-4 xl:pr-8 text-navy ani-home-11">
+            <div class="">
+                <h3 class="text-5xl lg:text-h3-init capitalize">{{ homePage[0].benefitsSection.title }}</h3>
+                <p class="text-base lg:text-lg-p-init lg:leading-normal py-6">{{ homePage[0].benefitsSection.paragraph }}</p>
+                <a class="text-navy font-bold capitalize text-button"
+                    {% if homePage[0].benefitsSection.button.link_to_where == "A page on this site" %}
+                    href='{{ homePage[0].benefitsSection.button.onsite_link }}'
+                    {% elseif homePage[0].benefitsSection.button.link_to_where == "Another site" %}
+                    href='{{ homePage[0].benefitsSection.button.offsite_link }}' target='_blank'
+                    {% elseif homePage[0].benefitsSection.button.link_to_where == "A file" %}
+                            href='{{ homePage[0].benefitsSection.button.file_link }}' 
+                    target='_blank'
+                    {% endif %}
+                >
+                    <button class="outline-button">
+                        {{ homePage[0].benefitsSection.button.text }}
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="w-full md:w-7/12 md:pl-4 xl:pl-8 ani-home-10">
+            <div class="bg-cover bg-center py-24 sm:py-48 the-benefits-img"></div>
+        </div>
+    </div>
+</div>
+
+{% include "global/testimonial-slider.html" %}
+
+<script>
+    let mobileServicesTimeline = document.getElementById('mobile-services-timeline');
+    let desktopServicesTimeline = document.getElementById('desktop-services-timeline');
+    let nextTimeline = document.getElementById('next-timeline');
+    let prevTimeline = document.getElementById('prev-timeline');
+    nextTimeline.addEventListener('click', function() {
+        mobileServicesTimeline.scrollLeft += 180;
+        desktopServicesTimeline.scrollLeft += 180;
+    });
+    prevTimeline.addEventListener('click', function() {
+        mobileServicesTimeline.scrollLeft -= 180;
+        desktopServicesTimeline.scrollLeft -= 180;
+    });
+</script>
+
+<script>
+gsap.set(".ani-home-05", { y: -20, opacity: 0 });
+gsap.set(".ani-home-1", { y: 20, opacity: 0 });
+
+let homeAni = gsap.timeline({scrollTrigger:{trigger: ".ani-home-trig-1",start: "top +=100px"}});
+homeAni.to(".ani-home-05", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-home-1", {y: 0,opacity: 1, ease: "sine", duration: 0.5});
+
+gsap.set(".ani-home-4", { y: 20, opacity: 0 });
+gsap.set(".ani-home-5", { y: 20, opacity: 0 });
+gsap.set(".ani-home-6", { y: 20, opacity: 0 });
+
+let homeAni3 = gsap.timeline({scrollTrigger:{trigger: ".ani-home-trig-3",start: "top +=1000px"}});
+homeAni3.to(".ani-home-4", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-home-5", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+  .to(".ani-home-6", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+
+gsap.set(".ani-home-7", { y: 20, opacity: 0 });
+
+let homeAni4 = gsap.timeline({scrollTrigger:{trigger: ".ani-home-trig-4",start: "top +=1000px"}});
+homeAni4.to(".ani-home-7", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+
+gsap.set(".ani-home-8", { y: 20, opacity: 0 });
+gsap.set(".ani-home-9", { y: 20, opacity: 0 });
+
+let homeAni5 = gsap.timeline({scrollTrigger:{trigger: ".ani-home-trig-5",start: "top +=1000px"}});
+homeAni5.to(".ani-home-8", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-home-9", {y: 0,opacity: 1, ease: "sine", duration: 0.5});
+
+gsap.set(".ani-home-10", { y: 20, opacity: 0 });
+gsap.set(".ani-home-11", { y: 20, opacity: 0 });
+
+let homeAni6 = gsap.timeline({scrollTrigger:{trigger: ".ani-home-trig-6",start: "top +=1000px"}});
+homeAni6.to(".ani-home-10", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-home-11", {y: 0,opacity: 1, ease: "sine", duration: 0.5});
+
+
+</script>

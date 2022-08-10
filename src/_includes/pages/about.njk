@@ -1,0 +1,517 @@
+{% set teamMemberTypes = [] %}
+{% for item in teamMembers %}
+    {% for item1 in item.types %}
+        {% if item1 in teamMemberTypes %}
+        {% else %}
+            {% set teamMemberTypes = (teamMemberTypes.push(item1), teamMemberTypes) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+{% set corporateTeam = [] %}
+{% for item in teamMembers %}
+        {% if 'Corporate Office' in item.types %}
+            {% set corporateTeam = (corporateTeam.push(item), corporateTeam) %}
+        {% endif %}
+{% endfor %}
+
+{% set regionalAdmins = [] %}
+{% set areaMarketingManagers = [] %}
+{% set operationsManagers = [] %}
+{% set operationsCoordinators = [] %}
+{% set operationsAssistants = [] %}
+{% set clientCareNurses = [] %}
+{% set otherRoles = [] %}
+{% for item in teamMembers %}
+   {% set jobTitle = item.jobTitle %}
+   {% if 'Regional Administrator' in jobTitle %}
+        {% set regionalAdmins = (regionalAdmins.push(item), regionalAdmins) %}
+    {% elseif 'Area Marketing Manager' in jobTitle %}
+        {% set areaMarketingManagers = (areaMarketingManagers.push(item), areaMarketingManagers) %}
+    {% elseif 'Operations Manager' in jobTitle %}
+        {% set operationsManagers = (operationsManagers.push(item), operationsManagers) %}
+    {% elseif 'Operations Coordinator' in jobTitle %}
+        {% set operationsCoordinators = (operationsCoordinators.push(item), operationsCoordinators) %}
+    {% elseif 'Operations Assistant' in jobTitle %}
+        {% set operationsAssistants = (operationsAssistants.push(item), operationsAssistants) %}
+    {% elseif 'Client Care Nurse' in jobTitle %}
+        {% set clientCareNurses = (clientCareNurses.push(item), clientCareNurses) %}
+    {% else %}
+        {% set otherRoles = (otherRoles.push(item), otherRoles) %}
+   {% endif %}
+{% endfor %}
+
+<div class="bg-cover bg-top bg-no-repeat -mt-32 pt-48 lg:pb-12 service-hero-bk ani-about-trig-1">
+    <div class="max-w-8xl mx-auto pb-16 lg:pb-6 px-6 md:px-12">
+        <style>
+            .service-hero-img {
+                background-image: url('{{ wpage.heroSection.image.url }}');
+                border-radius: 16px;
+            }
+        </style>
+        <div class="flex flex-wrap flex-col-reverse md:flex-row items-start">
+            <div class="w-full md:w-5/12 py-12 md:py-0 md:pr-4 xl:pr-8 text-navy ani-about-1">
+                <div class="">
+                    <h6 class="text-sm font-thin small-title">{{ wpage.heroSection.pretitle }}</h6>
+                    <h1 class="text-5xl xl:text-h1-init capitalize pt-2 pb-4">{{ wpage.heroSection.title }}</h1>
+                    <p class="text-base lg:text-lg-p-init lg:leading-normal pb-6">{{ wpage.heroSection.paragraph }}</p>
+                </div>
+            </div>
+            <div class="w-full md:w-7/12 md:pl-4 xl:pl-8">
+                <div class="bg-cover bg-center py-24 sm:py-64 service-hero-img ani-about-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-8xl mx-auto md:pt-16 pb-12 px-6 md:px-12">
+    <style>
+        .about-location-img {
+            background-image: url('{{ wpage.whyWeCareSection.image.url }}');
+            border-radius: 16px;
+        }
+    </style>
+    <div class="flex flex-wrap items-start">
+        <div class="w-full md:w-5/12 md:pr-4 xl:pr-8 ani-about-3">
+            <div class="bg-cover bg-center py-24 sm:py-48 about-location-img"></div>
+        </div>
+        <div class="w-full md:w-7/12 max-w-2xl py-12 md:py-0 md:pl-4 xl:pl-8 text-navy ani-about-4">
+            <div class="">
+                <h3 class="text-5xl xl:text-h3-init capitalize">{{ wpage.whyWeCareSection.title }}</h3>
+                <p class="text-base lg:text-lg-p-init lg:leading-normal py-6 whitespace-pre-line">{{ wpage.whyWeCareSection.paragraph }}</p>
+                <a class="text-navy font-bold capitalize text-button"
+                    {% if wpage.whyWeCareSection.button.link_to_where == "A page on this site" %}
+                    href='{{ wpage.whyWeCareSection.button.onsite_link }}'
+                    {% elseif wpage.whyWeCareSection.button.link_to_where == "Another site" %}
+                    href='{{ wpage.whyWeCareSection.button.offsite_link }}' target='_blank'
+                    {% elseif wpage.whyWeCareSection.button.link_to_where == "A file" %}
+                            href='{{ wpage.whyWeCareSection.button.file_link }}' 
+                    target='_blank'
+                    {% endif %}
+                >
+                    {{ wpage.whyWeCareSection.button.text }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mx-auto text-center text-navy md:pt-12 pb-24 lg:pb-32 px-2 md:px-6 team-box-list ani-about-trig-2">
+    <div class="max-w-7xl mx-auto ani-about-5">
+        <h3 class="text-5xl xl:text-h3-init capitalize">{{ wpage.teamSection.title }}</h3>
+        <p class="py-5 px-6">{{ wpage.teamSection.paragraph }}</p>
+    </div>
+    <div class="mx-auto overflow-hidden team-trigger-box ani-about-5">
+        <div class="swiper-team-cats">
+            <div class="swiper-wrapper">
+                {% for item in teamMemberTypes %}
+                    {% if item == "Corporate Office" %}
+                        <div class="text-left lg:text-center text-sm p-2 cursor-pointer swiper-slide team-type-trigger">
+                            {{ item }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% for item in teamMemberTypes %}
+                    {% if item !== "Corporate Office" %}
+                        <div class="text-left lg:text-center text-sm p-2 cursor-pointer swiper-slide team-type-trigger">
+                            {{ item }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="flex items-center justify-center w-full py-4">
+                <svg class="opacity-75 hover:opacity-100 mr-4 cursor-pointer swiper-button-prev-team-cats" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9997 16.9998C13.9997 16.7438 14.0977 16.4878 14.2927 16.2928L19.2927 11.2928C19.6838 10.9018 20.3158 10.9018 20.7067 11.2928C21.0977 11.6838 21.0977 12.3158 20.7067 12.7068L16.4137 16.9998L20.7067 21.2928C21.0977 21.6838 21.0977 22.3158 20.7067 22.7068C20.3157 23.0978 19.6837 23.0978 19.2927 22.7068L14.2927 17.7068C14.0977 17.5118 13.9997 17.2558 13.9997 16.9998Z" fill="#1E323F"/>
+                    <circle cx="17.5" cy="17.5" r="16.5" transform="rotate(-180 17.5 17.5)" stroke="#1E323F"/>
+                </svg>
+                <svg class="opacity-75 hover:opacity-100 cursor-pointer swiper-button-next-team-cats" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.0002 18.0002C21.0002 18.2562 20.9023 18.5122 20.7072 18.7072L15.7072 23.7072C15.3162 24.0982 14.6843 24.0982 14.2932 23.7072C13.9022 23.3162 13.9022 22.6842 14.2932 22.2932L18.5862 18.0002L14.2932 13.7072C13.9022 13.3162 13.9022 12.6842 14.2932 12.2932C14.6842 11.9022 15.3162 11.9022 15.7072 12.2932L20.7072 17.2932C20.9023 17.4882 21.0002 17.7442 21.0002 18.0002Z" fill="#1E323F"/>
+                    <circle cx="17.5" cy="17.5" r="16.5" stroke="#1E323F"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl flex flex-wrap items-start mx-auto pt-8 sm:px-6 xl:px-12 text-left overflow-hidden ani-about-6">
+        {% for item in corporateTeam | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for item in regionalAdmins | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for item in areaMarketingManagers | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for item in operationsManagers | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for item in operationsCoordinators | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for item in operationsAssistants | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for item in clientCareNurses | sortBy('weight') %}
+            <div class="w-full sm:w-3/4 lg:w-1/2 mx-auto lg:ml-0 about-team-box">
+                <div class="opacity-0 w-0 h-0 pointer-events-none team-type">
+                    {% for item1 in item.types %}
+                        {{ item1 }} 
+                    {% endfor %}
+                </div>
+                <div class="md:flex items-start p-4" x-data="{ readMore{{ item.id }}: false, readMoreHover{{ item.id }}: false }">
+                    <div class="relative team-headshot-box" @mouseover="readMoreHover{{ item.id }} = true" @mouseout="readMoreHover{{ item.id }} = false">
+                        <style>
+                            .team-headshot-{{ item.id }} {
+                                {% if item.headshot.url %}
+                                background-image: url('{{ item.headshot.url }}');
+                                {% else %}
+                                background-image: url('https://inside.abidecares.com/wp-content/uploads/2022/04/Portrait_Placeholder.jpg');
+                                {% endif %}
+                                filter: grayscale(100);
+                            }
+                        </style>
+                        <div class="py-32 bg-cover bg-center team-headshot-img team-headshot-{{ item.id }}">
+                            
+                        </div>
+                        <img class="absolute top-0 w-full h-full team-headshot-img" :class="{ 'opacity-0': !readMoreHover{{ item.id }} }" src="https://inside.abidecares.com/wp-content/uploads/2022/02/team-active.png" />
+                    </div>
+                    <div class="text-navy py-2 md:px-4">
+                        <h6>{{ item.name }}</h6>
+                        <div class="flex items-center pb-2 team-meta">
+                            <span>{{ item.jobTitle }}</span>
+                            <svg class="mx-1" width="14" height="18" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.4999 32C10.2445 30.0851 8.15386 27.9858 6.24997 25.724C3.39284 22.3273 1.57796e-06 17.2688 1.57796e-06 12.4485C-0.00253084 7.41404 3.04328 2.87426 7.71616 0.947555C12.389 -0.979146 17.7679 0.0870093 21.3428 3.64851C23.6936 5.978 25.0104 9.14674 24.9999 12.4485C24.9999 17.2688 21.607 22.3273 18.7499 25.724C16.846 27.9858 14.7554 30.0851 12.4999 32ZM12.4999 3.56142C7.5713 3.5673 3.57732 7.54273 3.57141 12.4485C3.57141 14.5209 4.51248 18.1095 8.99103 23.4435C10.0948 24.7554 11.266 26.0095 12.4999 27.201C13.7339 26.0109 14.9057 24.7586 16.0106 23.4489C20.4874 18.1078 21.4285 14.5192 21.4285 12.4485C21.4226 7.54273 17.4286 3.5673 12.4999 3.56142ZM12.4999 17.7807C9.54129 17.7807 7.14282 15.3934 7.14282 12.4485C7.14282 9.50356 9.54129 7.11624 12.4999 7.11624C15.4586 7.11624 17.8571 9.50356 17.8571 12.4485C17.8571 13.8627 17.2926 15.2189 16.288 16.2189C15.2833 17.2189 13.9207 17.7807 12.4999 17.7807Z" fill="#2E3A59"/>
+                            </svg>
+                            <span>{{ item.location }}</span>
+                        </div>
+                        {% if item.email %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="mailto:{{ item.email }}"><span class="font-bold pr-1">Email</span>{{ item.email }}</a>
+                            </div>
+                        {% endif %}
+                        {% if item.phone %}
+                            <div class="w-full text-sm pt-1">
+                                <a href="tel:{{ item.phone }}"><span class="font-bold pr-1">Phone</span>{{ item.phone }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "global/testimonial-slider.html" %}
+
+{% include "global/join-us-cta.html" %}
+
+<script>
+gsap.set(".ani-about-1", { y: -20, opacity: 0 });
+gsap.set(".ani-about-2", { y: 20, opacity: 0 });
+gsap.set(".ani-about-3", { y: -20, opacity: 0 });
+gsap.set(".ani-about-4", { y: 20, opacity: 0 });
+
+let aniAbout1 = gsap.timeline({scrollTrigger:{trigger: ".ani-about-trig-1",start: "top +=100px"}});
+aniAbout1.to(".ani-about-1", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-about-2", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+  .to(".ani-about-3", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+  .to(".ani-about-4", {y: 0,opacity: 1, ease: "sine", duration: 0.5});
+
+gsap.set(".ani-about-5", { y: 20, opacity: 0 });
+gsap.set(".ani-about-6", { y: 20, opacity: 0 });
+
+let aniAbout2 = gsap.timeline({scrollTrigger:{trigger: ".ani-about-trig-2",start: "top +=1000px"}});
+aniAbout2.to(".ani-about-5", {y: 0,opacity: 1, ease: "sine", duration: 0.5}, )
+  .to(".ani-about-6", {y: 0,opacity: 1, ease: "sine", duration: 0.5})
+</script>
+
+<script>
+let teamTypeTriggers = document.querySelectorAll('.team-type-trigger');
+let teamBoxes = document.querySelectorAll('.about-team-box');
+
+for (let i = 0; i < teamTypeTriggers.length; i++) {
+    teamTypeTriggers[i].addEventListener('click', function() {
+        console.log('hey')
+        gsap.set(".ani-testmon-1", { y: 0,opacity: 1, ease: "sine", duration: 0.5 });
+        gsap.set(".ani-testmon-2", { y: 0,opacity: 1, ease: "sine", duration: 0.5 });
+        gsap.set(".ani-testmon-3", { y: 0,opacity: 1, ease: "sine", duration: 0.5 });
+        gsap.set(".ani-join-1", { y: 0,opacity: 1, ease: "sine", duration: 0.5 });
+        for (let i2 = 0; i2 < teamTypeTriggers.length; i2++) {
+            teamTypeTriggers[i2].classList.remove('active-team-filter');
+        }
+        var clickedType = this.innerText;
+        for (let i3 = 0; i3 < teamBoxes.length; i3++) {
+            teamBoxes[i3].classList.add('hidden-team');
+            if (teamBoxes[i3].querySelector('.team-type').innerText.includes(clickedType) == true) {
+                teamBoxes[i3].classList.remove('hidden-team');
+                this.classList.add('active-team-filter');
+            } else {
+                
+            }
+        }
+    })
+}
+</script>

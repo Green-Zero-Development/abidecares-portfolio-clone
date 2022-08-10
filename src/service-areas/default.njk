@@ -1,0 +1,10 @@
+---
+layout: pages/service-area.njk
+pagination:
+    data: serviceAreas
+    size: 1
+    alias: serviceArea
+eleventyComputed:
+  yoastHead: "{{ serviceArea.yoast|safe }}"
+permalink: /service-areas/{{ serviceArea.slug }}/index.html
+---

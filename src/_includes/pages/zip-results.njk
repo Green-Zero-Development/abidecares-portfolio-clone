@@ -1,0 +1,113 @@
+<div class="bg-cover bg-top bg-no-repeat -mt-32 pt-48 pb-12 service-hero-bk ani-contact-trig-1">
+    <div class="w-full py-12 md:py-0 md:pr-4 xl:pr-8 text-navy ani-contact-1">
+        <h1 class="text-5xl xl:text-h1-init capitalize pt-2 pb-4 text-center">Results</h1>
+    </div>
+</div>
+
+<div id="results-box" class="flex flex-wrap max-w-3xl mx-auto pt-12 pb-12 px-6">
+    <h2 id="results-error" class="w-full text-lg text-center">We're fetching your results! Please wait one moment.</h2>
+</div>
+
+<div id="over-three-hundred" class="hidden flex flex-wrap max-w-3xl mx-auto pb-40 px-6">
+    {% for item in serviceAreas %}
+        <a href="/service-areas/{{ item.slug }}" class="w-full pb-12 md:p-4 lg:p-8 contact-page-address">
+            <div class="flex justify-between">
+                <h4 class="text-2xl lg:text-3xl pr-4">{{ item.locationProperName }}</h4>
+                <svg class="contact-page-arrow-button" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.243 21.6064C25.243 21.9167 25.1242 22.227 24.8878 22.4633L18.8272 28.5239C18.3533 28.9979 17.5872 28.9979 17.1133 28.5239C16.6393 28.05 16.6393 27.2839 17.1133 26.81L22.3169 21.6064L17.1133 16.4027C16.6393 15.9288 16.6393 15.1627 17.1133 14.6888C17.5872 14.2149 18.3533 14.2149 18.8272 14.6888L24.8878 20.7494C25.1242 20.9858 25.243 21.2961 25.243 21.6064Z" fill="#1E323F"/>
+                    <circle cx="21" cy="21" r="20" stroke="#1E323F"/>
+                </svg>
+            </div>
+            <address class="not-italic">
+                {{ item.street }}, {{ item.city }}, {{ item.state }} {{ item.zipCode }}
+            </address>
+        </a>
+    {% endfor %}
+</div>
+
+<a href="/service-areas/" class="py-32">
+    <div class="font-bold text-center py-32 text-button">Go Back</div>
+</a>
+
+{% include "global/testimonial-slider.html" %}
+
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const zipToSearch = urlParams.get('ziptosearch');
+</script>
+
+<script>
+
+const zipResultsBox = document.getElementById('results-box');
+const zipResultsError = document.getElementById('results-error');
+const overThreeHundred = document.getElementById('over-three-hundred');
+
+const zipCodes = {
+    {% for item in serviceAreas %}
+        {% for item1 in item.zipCodesServed %}
+            '{{ item1.zip_code }}': {'title': '{{ item.locationProperName }}', 'slug': '{{ item.slug }}', 'street': '{{ item.street }}', 'city': '{{ item.city }}', 'zipCode': '{{ item.zipCode }}', 'phoneNumber': '{{ item.phoneNumber }}'},
+        {% endfor %}
+    {% endfor %}
+};
+
+if (zipToSearch !== null) {
+    fetch('https://service.zipapi.us/zipcode/radius/' + zipToSearch + '?X-API-KEY=js-7bb167e07285cb5b3c3117a620dc11cd&radius=200')
+        .then(response => response.json())
+        .then(zipResults => determineFacilityDistance(zipResults));
+
+    function determineFacilityDistance(zipResults) {
+    const zipCodesFiltered = {};
+    const zipCodesPreOrdered = [];
+
+    function filterIt(arr, searchKey) {
+    return arr.filter(function(obj) {
+        return Object.keys(obj).some(function(key) {
+        return obj[key].includes(searchKey);
+        })
+    });
+    }
+
+    console.log(zipResults.message);
+
+    for (const zip in zipCodes) {
+            if (zipResults.message !== undefined) {
+                zipResultsError.innerHTML = `We couldn't find your zip code in our database. Please return to the <a href="/service-areas"><u>Service Areas page</u></a> and re-input your zip code.`;
+            } else if (filterIt(zipResults.data, `${zip}`)[0] !== undefined) {
+                zipCodesFiltered[filterIt(zipResults.data, `${zip}`)[0].ZipCode] = filterIt(zipResults.data, `${zip}`)[0].distance;
+                zipResultsError.innerText = 'These are the facilities nearest to your location:';
+            } else {
+                zipResultsError.innerText = "Your zip code is more than 200 miles from our nearest facility - here is a list of all of our facilities:";
+                overThreeHundred.classList.remove('hidden');
+            }
+        }
+
+    for (const item in zipCodesFiltered) {
+        if (zipCodes.hasOwnProperty(item)) {
+            zipCodesPreOrdered.push([parseInt(`${zipCodesFiltered[item]}`), zipCodes[item].title, zipCodes[item].slug, zipCodes[item].street, zipCodes[item].city, zipCodes[item].zipCode, zipCodes[item].phoneNumber])
+        }
+    }
+
+    const zipCodesOrdered = zipCodesPreOrdered.sort((a, b) => a[0] - b[0])
+
+    const zipDuplicates = {};
+
+    zipCodesOrdered.forEach(zip => {
+        if (zipDuplicates.hasOwnProperty(zip[1])) {
+
+        } else {
+            const locationBox = document.createElement('a');
+            locationBox.href = "/service-areas/" + zip[2];
+            locationBox.classList.add('w-full', 'pb-12', 'md:p-4', 'lg:p-8', 'contact-page-address');
+            locationBox.innerHTML += "<div class='flex justify-between'><h4 class='text-2xl lg:text-3xl pr-4'>" + zip[1] + "</h4><svg class='contact-page-arrow-button' width='42' height='42' viewBox='0 0 42 42' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M25.243 21.6064C25.243 21.9167 25.1242 22.227 24.8878 22.4633L18.8272 28.5239C18.3533 28.9979 17.5872 28.9979 17.1133 28.5239C16.6393 28.05 16.6393 27.2839 17.1133 26.81L22.3169 21.6064L17.1133 16.4027C16.6393 15.9288 16.6393 15.1627 17.1133 14.6888C17.5872 14.2149 18.3533 14.2149 18.8272 14.6888L24.8878 20.7494C25.1242 20.9858 25.243 21.2961 25.243 21.6064Z' fill='#1E323F'/><circle cx='21' cy='21' r='20' stroke='#1E323F'/></svg></div><address class='not-italic'>" + zip[3] + ", " + zip[4] + " " + zip[5] + "</address><h6 class='text-base zip-search-phone'>" + zip[6] + "</h6>"
+            zipDuplicates[zip[1]] = "checked";
+            zipResultsBox.appendChild(locationBox);
+        }
+    })
+
+    }
+} else {
+    zipResultsError.innerHTML = `You've reached this page without inputting your zip code. Please return to our <a href="/service-areas"><u>Service Areas page</u></a> and input your zip code.`;
+}
+
+</script>

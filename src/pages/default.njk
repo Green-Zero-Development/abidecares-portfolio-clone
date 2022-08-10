@@ -1,0 +1,33 @@
+---
+layout: base.njk
+pagination:
+    data: wpages
+    size: 1
+    alias: wpage
+eleventyComputed:
+  yoastHead: "{{ wpage.yoast|safe }}"
+permalink: /{{ wpage.slug }}/index.html
+---
+{%- for item in pagination.items %}
+    {% if item.template == "templates/about.php" %}
+        {% include "pages/about.njk" %}
+    {% elseif item.template == "templates/services.php" %}
+        {% include "pages/services.njk" %}
+    {% elseif item.template == "templates/our-services-area.php" %}
+        {% include "pages/our-services-area.njk" %}
+    {% elseif item.template == "templates/careers.php" %}
+        {% include "pages/careers.njk" %}
+    {% elseif item.template == "templates/contact.php" %}
+        {% include "pages/contact.njk" %}
+    {% elseif item.template == "templates/zip-results.php" %}
+        {% include "pages/zip-results.njk" %}
+    {% elseif item.template == "templates/for-providers.php" %}
+        {% include "pages/for-providers.njk" %}
+    {% elseif item.template == "templates/privacy.php" %}
+        {% include "pages/privacy-terms.njk" %}
+    {% elseif item.template == "templates/terms.php" %}
+        {% include "pages/privacy-terms.njk" %}
+    {% elseif item.template == "templates/thank-you.php" %}
+        {% include "pages/thank-you.njk" %}
+    {% endif %}
+{% endfor -%}
